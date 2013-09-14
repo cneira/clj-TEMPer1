@@ -1,4 +1,4 @@
-(ns usbtesting.core
+(ns clj-TEMPer1.core
   (:import [com.codeminders.hidapi HIDDeviceInfo HIDManager]
            [java.io IOException])
   (:use [clojure.pprint :as pprint]

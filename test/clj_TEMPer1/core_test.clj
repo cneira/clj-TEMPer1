@@ -1,4 +1,4 @@
-(ns usbtesting.core-test
+(ns clj-TEMPer1.core-test
   (:require [clojure.test :refer :all]
             [usbtesting.core :refer :all]))
 

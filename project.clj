@@ -5,5 +5,5 @@
   :repositories [["ailis" "http://nexus.ailis.de/content/groups/public"]]
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [com.codeminders/hidapi "1.1"]]
-  :main usbtesting.core
+  :main clj-TEMPer1.core
   :jvm-opts ["-Djava.library.path=target/native/mac"])
