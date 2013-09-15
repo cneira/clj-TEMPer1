@@ -2,15 +2,16 @@
   (:import [com.codeminders.hidapi HIDDeviceInfo HIDManager]
            [java.io IOException])
   (:use [clojure.pprint :as pprint]
-        [clojure.string :only (join)]))
+        [clojure.string :only (join)]
+        [clojure.tools.logging :only (info error)]))
 
 
 (defn list-devices []
   (try
     (let [manager (HIDManager/getInstance)
           devs (.listDevices manager)]
-      (println "TEMPer1 devices:\n")
-      (println (join "\n\n" (filter #(re-matches #".*TEMPer1.*" (str %)) devs))))
+      (info "TEMPer1 devices:\n")
+      (info (join "\n\n" (filter #(re-matches #".*TEMPer1.*" (str %)) devs))))
     (catch IOException e (str "caught exception: " (.getMessage e)))))
 
 (def VENDOR_ID 3141)
@@ -25,7 +26,7 @@
   (let [manager (HIDManager/getInstance)
         devs (.listDevices manager)
         temper1 (first (filter #(re-matches temper1-pattern (str %)) devs))]
-    (println "\nFound TEMPer1:")
+    (info "\nFound TEMPer1:")
     (pprint temper1)
     (.open temper1)))
 
@@ -43,7 +44,7 @@
 
 (defn raw-to-c [raw-temp]
   (let [celcius (float (* raw-temp (/ 125 32000)))]
-  (println (str "Temp: " celcius "C"))))
+  (info (str "Temp: " celcius "C"))))
 
 (defn print-celcius [temp]
   (raw-to-c temp))
@@ -57,7 +58,7 @@
          (.write dev temp)
 
          (try
-           (println (str "\nReading temperature from " (.getProductString dev)))
+           (info (str "\nReading temperature from " (.getProductString dev)))
            (.disableBlocking dev)
            (let [buf (byte-array BUFSIZE)]
 
@@ -71,14 +72,14 @@
          (finally (do
                     (.close dev)
                     (.release (HIDManager/getInstance))))))
-       (println "Found no TEMPer1 device!"))
+       (error "Found no TEMPer1 device!"))
    (catch IOException e (str "caught IOException: " (.getMessage e)))))
 
 
 (defn -main [& args]
-  (println "Load hidapi-jni library")
-  (println (System/getProperty "java.library.path"))
-  (println "---------------")
+  (info "Load hidapi-jni library")
+  (info (System/getProperty "java.library.path"))
+  (info "---------------")
   (clojure.lang.RT/loadLibrary "hidapi-jni-64")
 ;;  (list-devices)
   (read-device)
