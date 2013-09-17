@@ -9,5 +9,3 @@
                  [org.clojure/tools.logging "0.2.6"]
                  [expectations "1.4.52"]]
   :main clj-TEMPer1.core)
-;;   :jvm-opts ["-Djava.library.path=native/macosx/x86_64/"])
-;;   :jvm-opts ["-Djava.library.path=target/native/mac"])
