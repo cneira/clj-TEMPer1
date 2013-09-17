@@ -1,7 +1,12 @@
 (ns clj-TEMPer1.core-test
-  (:require [clojure.test :refer :all]
-            [usbtesting.core :refer :all]))
+  (:require [clj-TEMPer1.core :refer :all])
+  (:use expectations))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+;; (defn load-test-data
+;;   "loads test data"
+;;   {:expectations-options :before-run}
+;;   []
+;;   (test-data/do-test-data-load))
+
+;; (expect nil?  0)
+

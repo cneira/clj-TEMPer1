@@ -77,10 +77,11 @@
 
 
 (defn -main [& args]
+;;   (System/setProperty "java.library.path" "native/macosx/x86_64/")
   (info "Load hidapi-jni library")
   (info (System/getProperty "java.library.path"))
   (info "---------------")
   (clojure.lang.RT/loadLibrary "hidapi-jni-64")
 ;;  (list-devices)
-  (read-device)
+;;   (read-device)
   (System/exit 0))
