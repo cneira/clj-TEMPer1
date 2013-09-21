@@ -7,5 +7,6 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojars.torbjornvatn/hidapi "1.1"]
                  [org.clojure/tools.logging "0.2.6"]
+                 [org.slf4j/slf4j-log4j12 "1.7.5"]
                  [expectations "1.4.52"]]
   :main clj-TEMPer1.core)
