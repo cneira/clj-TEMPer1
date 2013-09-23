@@ -58,7 +58,7 @@
              (loop [res (.readTimeout dev buf 5000)]
                (if (= res 0)
                  (recur (.readTimeout dev buf 5000))))
-
+             (pprint buf)
              (let [celcius (calc-celcius buf)]
                celcius))
          (finally (do
