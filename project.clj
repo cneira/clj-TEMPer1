@@ -1,9 +1,11 @@
-(defproject org.clojars.torbjornvatn/clj-TEMPer1 "0.1.0-SNAPSHOT"
+(defproject org.clojars.torbjornvatn/clj-temper1 "0.1.0"
   :description "A small clojure library that interfaces with a TEMPer1 device"
   :license {:name "WTFPL – Do What the Fuck You Want to Public License"
             :url "http://www.wtfpl.net/"}
   :url "https://github.com/torbjornvatn/clj-TEMPer1"
-  :repositories [["ailis" "http://nexus.ailis.de/content/groups/public"]]
+  :repositories [["ailis" "http://nexus.ailis.de/content/groups/public"]
+                 ["release" {:url "https://clojars.org/repo"
+                             :creds :gpg}]]
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojars.torbjornvatn/hidapi "1.1"]
                  [org.clojure/tools.logging "0.2.6"]
