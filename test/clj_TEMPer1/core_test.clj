@@ -1,4 +1,4 @@
-(ns clj-TEMPer1.core-test
+(ns clj-temper1.core-test
   (:require [clj-TEMPer1.core :refer :all])
   (:use expectations))
 
