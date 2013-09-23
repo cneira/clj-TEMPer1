@@ -15,11 +15,10 @@
 
 (defn- open-temper1 []
   (let [manager (HIDManager/getInstance)
-        devs (.listDevices manager)
-        temper1 (first (filter #(re-matches temper1-pattern (str %)) devs))]
-    (debug "Found TEMPer1:")
-    (pprint temper1)
-    (.open temper1)))
+        devs (.listDevices manager)]
+    (if-let [temper1 (first (filter #(re-matches temper1-pattern (str %)) devs))]
+      (.open temper1)
+      (throw (RuntimeException. "No TEMPer1 device found!!")))))
 
 (defn- raw-temp [buf]
   (let [b1 (bit-and (aget buf 3)(byte -1))
@@ -45,7 +44,7 @@
 
 (def temp (byte-array (map byte [1, -128, 51, 1, 0, 0, 0, 0])))
 
-(defn read-device []
+(defn read-temperature []
   (try
      (if-let [dev (open-temper1)]
        (do
@@ -76,10 +75,13 @@
       (filter #(re-matches #".*TEMPer1.*" (str %)) devs))
     (catch IOException e (str "caught exception: " (.getMessage e)))))
 
+(defn load-hid-natives []
+   (clojure.lang.RT/loadLibrary "hidapi-jni-64"))
+
 
 (defn -main [& args]
   (info (str "Loading hidapi-jni library from: " (System/getProperty "java.library.path")))
-  (clojure.lang.RT/loadLibrary "hidapi-jni-64")
+  (load-hid-natives)
   (info (str "Devices found: \n" (join "\n\n" (list-devices))))
-  (info (str "Temp: " (read-device) "°C"))
+  (info (str "Temp: " (read-temperature) "°C"))
   (System/exit 0))
