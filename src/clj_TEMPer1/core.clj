@@ -58,14 +58,15 @@
              (loop [res (.readTimeout dev buf 5000)]
                (if (= res 0)
                  (recur (.readTimeout dev buf 5000))))
-             (pprint buf)
              (let [celcius (calc-celcius buf)]
                celcius))
          (finally (do
                     (.close dev)
                     (.release (HIDManager/getInstance))))))
        (error "Found no TEMPer1 device!"))
-   (catch IOException e (str "caught IOException: " (.getMessage e)))))
+   (catch Exception e (
+                       (error (str "caught Exception: " (.getMessage e)))
+                       (System/exit 0)))))
 
 
 (defn list-devices []
@@ -76,7 +77,8 @@
     (catch IOException e (str "caught exception: " (.getMessage e)))))
 
 (defn load-hid-natives []
-   (clojure.lang.RT/loadLibrary "hidapi-jni-64"))
+  (let [bits (System/getProperty "sun.arch.data.model")]
+    (clojure.lang.RT/loadLibrary (str "hidapi-jni-" bits))))
 
 
 (defn -main [& args]

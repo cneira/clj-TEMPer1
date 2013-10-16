@@ -1,8 +1,8 @@
 (ns clj-temper1.core-test
-  (:require [clj-TEMPer1.core :refer :all])
+  (:require [clj-temper1.core :refer :all])
   (:use expectations))
 
-;; Have to load nativ hid libraries during compilation
+;; Have to load native hid libraries during compilation
 (load-hid-natives)
 
 ;; Testing the list-devices function
@@ -20,4 +20,5 @@
 ;; [-128, 2, 22, 80, -4, 82, -95, -40, 0, 0, 0, 0] into 22.3125°C
 (def read-temp-buf (byte-array (map byte [-128, 2, 22, 80, -4, 82, -95, -40, 0, 0, 0, 0])))
 
-(expect 22.3125 (#'clj-TEMPer1.core/calc-celcius read-temp-buf))
+(expect 22.3125 (#'clj-temper1.core/calc-celcius read-temp-buf))
+
