@@ -8,10 +8,15 @@
 (def VENDOR_ID 3141)
 (def PRODUCT_ID 29697)
 (def USAGE_PAGE 65280)
+(def INTERFACE_NUMBER 1)
 (def BUFSIZE 2048)
 (def READ_UPDATE_DELAY_MS 50)
 
-(def temper1-pattern (re-pattern (str ".*TEMPer.*usage_page=" USAGE_PAGE ".*")))
+(def os-arch (System/getProperty "os.arch"))
+
+(def temper1-pattern (if (= os-arch "arm")
+                       (re-pattern (str ".*TEMPer.*interface_number=" INTERFACE_NUMBER ".*"))
+                       (re-pattern (str ".*TEMPer.*usage_page=" USAGE_PAGE ".*"))))
 
 (defn- open-temper1 []
   (let [manager (HIDManager/getInstance)
