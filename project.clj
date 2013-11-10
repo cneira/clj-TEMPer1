@@ -1,4 +1,4 @@
-(defproject org.clojars.torbjornvatn/clj-temper1 "0.1.3"
+(defproject org.clojars.torbjornvatn/clj-temper1 "0.1.4-SNAPSHOT"
   :description "A small clojure library that interfaces with a TEMPer1 device"
   :license {:name "WTFPL – Do What the Fuck You Want to Public License"
             :url "http://www.wtfpl.net/"}
